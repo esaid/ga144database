@@ -1,0 +1,12 @@
+\ wire
+
+: pass
+    @ !b pass ;
+: read
+    @ !b @b ! read ;
+: duplex
+    @ ! duplex ;
+
+
+\ : end wire
+\ ;

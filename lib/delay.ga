@@ -1,0 +1,32 @@
+\ delay 
+: pause
+	5000 for 10000 
+	for next . . next ;
+
+: 5ms ( 5ms )
+    5 for 999 us next ;
+
+: us ( us time )
+	for 416 for unext next ;
+
+: ms ( n ms )
+	for 999 us next ;
+
+: 50ns
+	18 for unext ;
+: 300ns
+	124 for unext ;
+
+: 500ns
+	199 for unext ;
+
+: 1us
+	426 for unext ;
+
+: end delay
+;
+
+
+
+
+

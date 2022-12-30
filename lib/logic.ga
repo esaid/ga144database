@@ -1,0 +1,11 @@
+\ logic
+
+: lsh  \ lshift
+	push begin 2* unext ;
+
+: rsh  \ rshift
+	push begin 2/ unext ;
+
+
+\ : end logic
+\ ;

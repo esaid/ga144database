@@ -1,0 +1,7 @@
+\ debug
+: db
+    include 708serial.ga \
+    : main io b! south a! loop @ send loop ;
+
+: end debug
+;

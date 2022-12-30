@@ -1,0 +1,68 @@
+\ maths
+
+: max
+   - over . + - -if : main drop ; then + ;
+
+: negate
+    - 1 . + ;
+
+: abs
+    -if - 1 . + then ;
+
+: max 
+   - over . + - -if drop ; then + ;
+
+: min 
+   - over . + - -if + ; then drop ;
+
+: 1+ 
+	1 . + ;
+
+: 1-	-1 . + ;
+
+: pi 	314 ;
+
+: clc 
+	dup dup or dup + drop ;
+
+: +u
+	+ push 0 + pop ;
+
+: -d 
+	- push - pop 1 +u ;
+
+: 2*d
+	dup + push dup + pop ;
+
+: 2/d
+	2/ 2* a! +* a ;
+
+: sign
+	dup push dup -if or -pop ; then or pop ;
+
+: +d
+	a! push a . + a! pop . + a ;
+
+: +s
+	sign +d ;
+
+: *
+	a! 0 17 for +* unext a ;
+
+: *+
+	a! 17 for +* next drop drop a ;
+
+: /mod
+	for begin over over . + -if drop 2* swap next ;then over or or - 2* - next ;
+
+: end maths
+ ;
+
+
+	
+
+
+
+
+
+

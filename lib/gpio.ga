@@ -1,0 +1,11 @@
+\ gpio
+: io.h
+    0x30000 !b . .  ;
+: io.l
+    0x20000 !b . .  ;
+: ?pin
+    @b drop 1 ;
+
+
+: end gpio
+;
