@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv(".env")  # la DETA_KEY est cache
 DETA_KEY = os.getenv("DETA_KEY")
 deta = Deta(DETA_KEY)
+drive = deta.Drive("simple_drive")
 
 
 def get_file_drive(name_drive, file_):
@@ -29,3 +30,4 @@ def delete_file_drive(name_drive, file_):
 def list_files(name_drive):
     d = deta.Drive(name_drive)
     return d.list().get('names')
+
