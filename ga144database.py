@@ -3,7 +3,9 @@ import sys
 import glob
 from deta import Deta
 from dotenv import load_dotenv
+import database
 
+'''
 # initialisation database DETA_KEY
 load_dotenv(".env")  # la DETA_KEY est cache
 DETA_KEY = os.getenv("DETA_KEY")
@@ -70,7 +72,7 @@ print(f"select: {projet}", fetch_projet(projet, '.node'))
 nodes = fetch_projet(projet, '.node')  # liste de dictionnaire
 for l in nodes:
     print(l["key"], "\n", l["code"])
-
+'''
 '''
 # file_in_lib = glob.glob(f"lib/*.ga") # list fichiers dans /lib
 file_in_lib = os.listdir("lib") # list fichiers dans /lib
@@ -90,41 +92,17 @@ all_files = result.get("names")
 print(result)
 '''
 
-
-def get_file_drive(name_drive, file_):
-    d = deta.Drive(name_drive)
-    get_d = d.get(f"{file_}")
-    content = get_d.read()
-    get_d.close()
-    return content
-
-
-def put_file_drive(name_drive, file_, path_local):
-    d = deta.Drive(name_drive)
-    d.put(f"{file_}", path=f"{path_local}/{file_}")
-
-
-def delete_file_drive(name_drive, file_):
-    d = deta.Drive(name_drive)
-    d.delete(f"{file_}")
-
-
-def list_files(name_drive):
-    d = deta.Drive(name_drive)
-    return d.list().get('names')
-
-
-print(get_file_drive("lib", "delay.ga"))
+print(database.get_file_drive("lib", "delay.ga"))
 
 file = 'logic.ga'
 path_destination = 'lib'
 path_local = 'lib'
 print(f"put the file {file}")
-put_file_drive(path_destination, file, path_local)  # path destination et pathlocal ont le meme nom
+database.put_file_drive(path_destination, file, path_local)  # path destination et pathlocal ont le meme nom
 
 file = 'gpio.ga'
 path_destination = "lib"
 print(f"delete file  {file}")
-delete_file_drive(path_destination, file)
+database.delete_file_drive(path_destination, file)
 
-print(f"list  {path_destination}  : {list_files(path_destination)}")
+print(f"list  {path_destination}  : {database.list_files(path_destination)}")
