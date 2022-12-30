@@ -1,0 +1,24 @@
+\ /home/esaid/PycharmProjects/streamlit_tutoriel/ledpulse
+\ require delay
+\ require gpio
+node 500
+
+\ demo Led Pulse
+
+: ledpulse
+   
+    0x30000 !b . .   \ led on
+    pause
+   
+    0x20000 !b . .   \ led off
+    pause
+    5ms
+    ledpulse
+
+    
+: pause
+	5000 for 10000 
+	for next . . next ;
+: 5ms ( 5ms )
+    5 for 999 ( us time )
+	for 416 for unext next  next ;

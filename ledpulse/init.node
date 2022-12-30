@@ -1,0 +1,3 @@
+\ /home/esaid/PycharmProjects/streamlit_tutoriel/ledpulse
+require delay
+require gpio

@@ -1,0 +1,23 @@
+
+\ Sends 18 bit words from node 708
+\ b must be set to io
+\
+\ Example:
+\
+\ node 708
+\ include 708serial.ga
+\ : main
+\  124 send exit
+
+: send ( n - n )
+    \ 18bit words sent using 4 bytes in order:
+    \   wordcode lower8 middle8 upper2
+    0 _send8 drop
+    _send8 _send8
+: _send8 ( n - n )
+    0 _send1
+    7 for dup _send1 2/ next 1
+: _send1 ( n )
+    1 and 3 or !b
+    unext_baud for unext ;
+: exit 1 _send8 ;
