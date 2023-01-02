@@ -4,106 +4,54 @@ import glob
 from deta import Deta
 from dotenv import load_dotenv
 import database
+import streamlit as st
+import streamlit_authenticator as stauth
 
-'''
-# initialisation database DETA_KEY
-load_dotenv(".env")  # la DETA_KEY est cache
-DETA_KEY = os.getenv("DETA_KEY")
-deta = Deta(DETA_KEY)
+# generation dictionnaire
+dict_db = {
+    'name': 'Emmanuel',
+    'username': "esaid",
+    'avatar': '003.png',
+    'name_project': 'ledpulse',
+    'public': True,
+    'comment': " "
 
+}
 
-def readfile(filename):
-    with open(filename) as f:
-        content = f.readlines()
-        return content
+name_project = f"{dict_db['name_project']}_{dict_db['username']}"
+# database.put_database(dict_db) # ecriture dans datatbase
+# sys.exit()
 
+path_avatar_drive = 'avatar'
 
-# datas nom du projet , qui corrrespond au nom du repertoire
-name_project = 'ledpulse'
+if "avatar" not in st.session_state:
+    avatar = ''
 
-# fichiers dans repertoire name_project
-# listdir = glob.glob(f"{name_project}/*.node")
-listdir = os.listdir(name_project)  # list les noms des fichiers dans le repertoire name_project
-print(listdir)
+# Authentification
+name = ["admin", "emmanuel said"]
+username = ["admin", "esaid"]
+passwords = ["1234", "1234"]  # 1234  1234
 
-# generation dictionnaire node : code
-dictnodes = {}
-for l in listdir:
-    dictnodes.update({l: readfile(f"{name_project}/{l}")})  # {node : code}
-print(dictnodes)
+# generation fichier si ajout ou modification mot de passe
+database.generate_hashed_passwords( name, username, passwords)
 
-db = deta.Base("ga144_db")
+name, username, hashed_passwords = database.read_hashed_passwords('hashed_pwd.plk')
+# print(f"lecture fichier et decodage {hashed_passwords}")
+authenticator = stauth.Authenticate(name, username, hashed_passwords, 'some_cookie_name', 'some_signature_key',
+                                    cookie_expiry_days=30)
+name, authentication_status, username = authenticator.login('GA144', 'main')
+placeholder = st.empty()
+# if st.session_state.page == 0:
+with placeholder.container():
+    st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.path_avatar_drive))
+    st.image(database.get_file_drive(path_avatar_drive, st.session_state["avatar"]), width=70)
 
-
-def insert_database(node, code, name_project):
-    return db.put({'key': node, 'name_node': node, 'code': code, 'name_project': name_project})
-
-
-def values_to_database(dictnodes_):
-    # insert node code name_project in  database
-    for key, value in dictnodes_.items():
-        insert_database(key, "".join(value), name_project)
-
-
-def fetch_all():
-    res = db.fetch()
-    return res.items
-
-
-def fetch_projet(projet_, node_):
-    res = db.fetch({"name_project": 'ledpulse', "name_node?contains": node_})
-    return res.items
-
-
-def get_code(getname_node):
-    return db.get(getname_node)['code']
-
-
-node = '500.node'
-projet = 'ledpulse'
-
-# values_to_database(dictnodes)
-
-
-print("fetch all: ", fetch_all())
-print(f"code: {node}\n", get_code(node))  # code du node en parametre
-print(f"select: {projet}", fetch_projet(projet, '.node'))
-
-nodes = fetch_projet(projet, '.node')  # liste de dictionnaire
-for l in nodes:
-    print(l["key"], "\n", l["code"])
-'''
-'''
-# file_in_lib = glob.glob(f"lib/*.ga") # list fichiers dans /lib
-file_in_lib = os.listdir("lib") # list fichiers dans /lib
-print(file_in_lib)
-
-# creation et copie fichiers /lib
-drive = deta.Drive("simple_drive")
-lib = deta.Drive('lib')
-# copie des fichiers /lib vers drive
-for l in file_in_lib:
-    print(l, 'lib/'+l)
-    lib.put(l, path='lib/'+l) # file to send, path= local source
-
-# list des fichiers sur drive
-result = lib.list()
-all_files = result.get("names")
-print(result)
-'''
-
-print(database.get_file_drive("lib", "delay.ga"))
-
-file = 'logic.ga'
-path_destination = 'lib'
-path_local = 'lib'
-print(f"put the file {file}")
-database.put_file_drive(path_destination, file, path_local)  # path destination et pathlocal ont le meme nom
-
-file = 'gpio.ga'
-path_destination = "lib"
-print(f"delete file  {file}")
-database.delete_file_drive(path_destination, file)
-print(f"list  {path_destination}  : {database.list_files(path_destination)}")
-
-
+if authentication_status:
+    placeholder.empty() # status ok, clear st.image(avatar)
+    st.write(f'Welcome *{name}*')
+    st.image(database.get_file_drive(database.path_avatar_drive, st.session_state["avatar"]),  width=70)
+    authenticator.logout('Logout', 'main')
+elif authentication_status == False:
+    st.error('Username/password is incorrect')
+elif authentication_status is None:
+    st.warning('Please enter your username and password')
