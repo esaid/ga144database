@@ -14,13 +14,18 @@ drive = deta.Drive("simple_drive")
 # --------------------------------------------------
 
 # --------------------------------------------------
+# initialisation Base et Drive
+# Base pour user , project , lien commun username
 db_user = deta.Base('user')  # users database
 db_project = deta.Base('project')  # project database
+# Drive pour avatar , lib, project_name ( concatenation username_name_project )
 path_avatar_drive = 'avatar'  # fichiers stocke avatar/001.png
 avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
 path_lib_destination = 'lib'
 lib_drive = deta.Drive(path_lib_destination)  # lib/ Drive
 # --------------------------------------------------
+
+
 
 
 # generation hashed_passwords et sauvegrde dans le fichier file_
