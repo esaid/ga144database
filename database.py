@@ -30,8 +30,7 @@ lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
 # generation hashed_passwords et sauvegrde dans le fichier file_
 def generate_hashed_passwords(name, username, password_, file_):
     hashed_passwords = stauth.Hasher(password_).generate()
-
-    # print(f"generation password :{hashed_passwords}")
+    print(f"generation password :{hashed_passwords}")
     # ecriture du fichier passwords
     # print("ecriture fichier :")
     with open(file_, 'wb') as f:
