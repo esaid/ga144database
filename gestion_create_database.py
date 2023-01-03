@@ -22,7 +22,7 @@ create_hashed_passwords = False
 # lib
 
 path_lib_local = 'lib/'  # fichiers dans /lib Local
-create_lib_drive = True
+create_lib_drive = False
 # --------------------------------------------------
 
 # --------------------------------------------------

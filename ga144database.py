@@ -1,8 +1,5 @@
 import os
 import sys
-import glob
-from deta import Deta
-from dotenv import load_dotenv
 import database
 import streamlit as st
 import streamlit_authenticator as stauth

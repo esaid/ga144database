@@ -104,9 +104,9 @@ def get_code(getname_node, db):
     return db.get(getname_node)['code']
 
 
-def get_file_drive(name_drive, file_):
-    d = deta.Drive(name_drive)
-    get_d = d.get(f"{file_}")
+def get_file_drive(drive_, file_):
+
+    get_d = drive_.get(f"{file_}")
     content = get_d.read()
     get_d.close()
     return content
@@ -116,11 +116,9 @@ def put_file_drive(drive_, file_, path_local):
     drive_.put(f"{file_}", path=f"{path_local}{file_}")
 
 
-def delete_file_drive(name_drive, file_):
-    d = deta.Drive(name_drive)
-    d.delete(f"{file_}")
+def delete_file_drive(drive_, file_):
+    drive_.delete(f"{file_}")
 
 
-def list_files(name_drive):
-    d = deta.Drive(name_drive)
-    return d.list().get('names')
+def list_files(drive_):
+    return drive_.list().get('names')
