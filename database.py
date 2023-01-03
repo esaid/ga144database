@@ -19,13 +19,12 @@ drive = deta.Drive("simple_drive")
 db_user = deta.Base('user')  # users database
 db_project = deta.Base('project')  # project database
 # Drive pour avatar , lib, project_name ( concatenation username_name_project )
+
 path_avatar_drive = 'avatar'  # fichiers stocke avatar/001.png
 avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
-path_lib_destination = 'lib'
-lib_drive = deta.Drive(path_lib_destination)  # lib/ Drive
+path_lib_drive = 'lib'
+lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
 # --------------------------------------------------
-
-
 
 
 # generation hashed_passwords et sauvegrde dans le fichier file_
@@ -113,9 +112,8 @@ def get_file_drive(name_drive, file_):
     return content
 
 
-def put_file_drive(name_drive, file_, path_local):
-    d = deta.Drive(name_drive)
-    d.put(f"{file_}", path=f"{path_local}/{file_}")
+def put_file_drive(drive_, file_, path_local):
+    drive_.put(f"{file_}", path=f"{path_local}{file_}")
 
 
 def delete_file_drive(name_drive, file_):

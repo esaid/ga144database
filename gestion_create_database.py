@@ -21,8 +21,8 @@ create_hashed_passwords = False
 # --------------------------------------------------
 # lib
 
-path_lib_local = 'lib'  # fichiers dans /lib Local
-create_lib_drive = False
+path_lib_local = 'lib/'  # fichiers dans /lib Local
+create_lib_drive = True
 # --------------------------------------------------
 
 # --------------------------------------------------
@@ -43,7 +43,7 @@ if create_avatar_drive:  # creation et stockage des fichiers avatar/png
     # copie des fichiers /avatar vers drive
     for l in list_avatar:
         print(l)
-        database.avatar_drive.put(l, path=database.path_avatar_drive + l)  # file to send, path= local source
+        database.put_file_drive(database.avatar_drive, l, path_avatar_local)  # file to send from path_avatar_local
 
 if create_lib_drive:
     # file_in_lib = glob.glob(f"lib/*.ga") # list fichiers dans /lib
@@ -51,8 +51,7 @@ if create_lib_drive:
     # print(file_in_lib)
     # copie des fichiers /lib vers drive
     for l in file_in_lib:
-        database.lib_drive.put(l, path=database.path_lib_destination + l)  # file to send, path_lib_destination
-
+        database.put_file_drive(database.lib_drive, l, path_lib_local)  # file to send from path_lib_local
 
 if creation_user:
     # generation dictionnaire user
