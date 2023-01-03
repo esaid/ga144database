@@ -25,6 +25,13 @@ path_lib_local = 'lib'  # fichiers dans /lib Local
 create_lib_drive = False
 # --------------------------------------------------
 
+# --------------------------------------------------
+# users database
+creation_user = False
+
+# project database
+creation_project = False
+# --------------------------------------------------
 
 if create_hashed_passwords:
     # generation fichier si ajout ou modification mot de passe
@@ -45,3 +52,28 @@ if create_lib_drive:
     # copie des fichiers /lib vers drive
     for l in file_in_lib:
         database.lib_drive.put(l, path=database.path_lib_destination + l)  # file to send, path_lib_destination
+
+
+if creation_user:
+    # generation dictionnaire user
+    dict_db_user = {
+        'surname': 'Emmanuel',
+        'name': 'SAID',
+        'username': "esaid",
+        'email': "emmanuel.said@gmail.com",
+        'avatar': '003.png',
+        'key': '1'
+    }
+    database.put_database(database.db_user, dict_db_user)  # ecriture dans datatbase user
+
+if creation_project:
+    # generation dictionnaire projet
+    dict_db_project = {
+        'username': "esaid",
+        'name_project': 'ledpulse',
+        'public': True,
+        'comment': " ",
+        'key': '1'
+    }
+    name_project_folder = f"{dict_db_project['username']}_{dict_db_project['name_project']}"  # concatenation user_name_project
+    database.put_database(database.db_project, dict_db_project)  # ecriture dans datatbase project

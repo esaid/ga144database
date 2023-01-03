@@ -14,7 +14,7 @@ drive = deta.Drive("simple_drive")
 # --------------------------------------------------
 
 # --------------------------------------------------
-db_user = deta.Base("user")  # users database
+db_user = deta.Base('user')  # users database
 db_project = deta.Base('project')  # project database
 path_avatar_drive = 'avatar'  # fichiers stocke avatar/001.png
 avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
@@ -53,12 +53,12 @@ def readfile(filename):
         return content
 
 
-def put_database(dict_):
-    db_user.put(dict_)
+def put_database(database_, dict_):
+    database_.put(dict_)
 
 
-def fetch_all(db):
-    res = db.fetch(db)
+def fetch_all(database_):
+    res = database_.fetch(database_)
     return res.items
 
 
@@ -77,14 +77,14 @@ def update_database(database_, update_values_, key_):
     database_.put(d)
 
 
-a = fetch_projet(db_user, {"name_project": 'led', "name": 'toto'})
-sys.exit()
+# a = fetch_projet(db_user, {"name_project": 'led', "name": 'toto'})
+# sys.exit()
 
-name_ = 'Emmanuel'
-a = get_database(db_user, '1')
-print(a)
-update_database(db_user, {'name': name_}, '1')
-sys.exit()
+# name_ = 'Emmanuel'
+# a = get_database(db_user, '1')
+# print(a)
+# update_database(db_user, {'name': name_}, '1')
+# sys.exit()
 
 
 def delete_database(database_, query_):  # delete_database(db_user, {"name": "Emmanuel"})

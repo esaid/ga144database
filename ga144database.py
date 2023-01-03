@@ -7,29 +7,6 @@ import database
 import streamlit as st
 import streamlit_authenticator as stauth
 
-# generation dictionnaire user
-dict_db_user = {
-    'surname': 'Emmanuel',
-    'name': 'SAID',
-    'username': "esaid",
-    'avatar': '003.png',
-    'key': 1
-}
-
-# generation dictionnaire projet
-dict_db_project = {
-    'username': "esaid",
-    'name_project': 'ledpulse',
-    'public': True,
-    'comment': " ",
-    'key': 1
-}
-
-name_project_folder = f"{dict_db_project['username']}_{dict_db_project['name_project']}"  # concatenation user_name_project
-
-database.put_database(dict_db_user)  # ecriture dans datatbase user
-database.put_database(dict_db_project)  # ecriture dans datatbase project
-# sys.exit()
 
 path_avatar_drive = 'avatar'
 if "avatar" not in st.session_state:
