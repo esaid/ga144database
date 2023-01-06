@@ -1,0 +1,31 @@
+
+with open ( 'config.yaml' ) as file:
+    config = yaml.load ( file, Loader=SafeLoader )
+
+c = config['credentials']
+cn = config['cookie']['name']
+ck = config['cookie']['key']
+ced = config['cookie']['expiry_days']
+cp = config['preauthorized']
+
+
+config = {'credentials': {'usernames': {'jsmith': {'email': 'jsmith@gmail.com', 'name': 'John Smith', 'password': '123'}, 'rbriggs': {'email': 'rbriggs@gmail.com', 'name': 'Rebecca Briggs', 'password': '456'}}}, 'cookie': {'expiry_days': 30, 'key': 'random_signature_key', 'name': 'random_cookie_name'}, 'preauthorized': {'emails': ['melsby@gmail.com']}}
+config = dict   key : 'credentials' , key : 'cookie',  key : 'preauthorized'
+
+
+c = {'usernames': {'jsmith': {'email': 'jsmith@gmail.com', 'name': 'John Smith', 'password': '123'}, 'rbriggs': {'email': 'rbriggs@gmail.com', 'name': 'Rebecca Briggs', 'password': '456'}}}
+c = dict1  ,  key : 'usernames'
+cn = 'random_cookie_name'   cn = str
+ck = 'random_signature_key'  ck = str
+ced = 30  ced = int
+cp = {'emails': ['melsby@gmail.com']}    cp = dict1 list  key : 'emails'
+
+
+
+ authenticator = stauth.Authenticate(
+# config['credentials'],
+# config['cookie']['name'],
+# config['cookie']['key'],
+# config['cookie']['expiry_days'],
+# config['preauthorized']
+# )
