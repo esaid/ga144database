@@ -14,6 +14,7 @@ name = ["admin", "emmanuel said"]
 username = ["admin", "esaid"]
 passwords = ["1234", "1234"]  # 1234  1234
 
+
 file_hashed_passwords = 'hashed_pwd.plk'
 create_hashed_passwords = False
 # --------------------------------------------------

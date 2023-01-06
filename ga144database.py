@@ -13,21 +13,23 @@ if "avatar" not in st.session_state:
     avatar = ''
 
 # read hashed passwords name , username
-name, username, hashed_passwords = database.read_hashed_passwords('hashed_pwd.plk')
-# print(f"lecture fichier et decodage {hashed_passwords}")
-# authenticator = stauth.Authenticate(name, username, hashed_passwords, 'some_cookie_name', 'some_signature_key', cookie_expiry_days=30)
+list_usernames = ["admin", "esaid"]
+list_email = ["admin_ga144@gmail.com", "emmanuel.said@gmail.com"]
+list_name = ["admin", "Emmanuel"]
+# list_passwords = ["hashed_password", "$hashed_password"] # 1234 1234 to be replaced by hashed values
+list_emails_prehautorized = ["emmanuel.said@gmail.com"]
+list_value_cookies = [30, "random_signature_key", "random_cookie_name"]
 
-with open('config.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
+list_name, list_usernames, list_passwords = database.read_hashed_passwords('hashed_pwd.plk')
 
-#authenticator = stauth.Authenticate(
-   # config['credentials'],
-   # config['cookie']['name'],
-   # config['cookie']['key'],
-   # config['cookie']['expiry_days'],
-   # config['preauthorized']
-#)
-authenticator = stauth.Authenticate(name, username , hashed_passwords ,  'some_cookie_name', 'some_signature_key', cookie_expiry_days=30)
+config = database.autentificator_list_dict(list_usernames,list_email,list_name,list_passwords,list_emails_prehautorized,list_value_cookies)
+authenticator = stauth.Authenticate(
+   config['credentials'],
+   config['cookie']['name'],
+   config['cookie']['key'],
+   config['cookie']['expiry_days'],
+   config['preauthorized']
+)
 
 name, authentication_status, username = authenticator.login('GA144', 'main')
 
