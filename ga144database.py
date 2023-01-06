@@ -19,7 +19,7 @@ list_name = ["admin", "Emmanuel"]
 # list_passwords = ["hashed_password", "$hashed_password"] # 1234 1234 to be replaced by hashed values
 list_emails_prehautorized = ["emmanuel.said@gmail.com"]
 list_value_cookies = [30, "random_signature_key", "random_cookie_name"]
-
+# read list_passwords ( hashed values)
 list_name, list_usernames, list_passwords = database.read_hashed_passwords('hashed_pwd.plk')
 
 config = database.autentificator_list_dict(list_usernames,list_email,list_name,list_passwords,list_emails_prehautorized,list_value_cookies)
