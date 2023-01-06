@@ -1,7 +1,7 @@
 import os
 import sys
 from deta import Deta
-from dotenv import load_dotenv
+from dotenv import load_dotenv # python-dotenv
 import pickle
 import streamlit_authenticator as stauth
 
