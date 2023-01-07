@@ -1,7 +1,7 @@
 import os
 import sys
 from deta import Deta
-from dotenv import load_dotenv # python-dotenv
+from dotenv import load_dotenv  # python-dotenv
 import pickle
 import streamlit_authenticator as stauth
 
@@ -24,30 +24,34 @@ path_avatar_drive = 'avatar'  # fichiers stocke avatar/001.png
 avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
 path_lib_drive = 'lib'
 lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
+
+
 # --------------------------------------------------
-def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_passwords_, list_emails_prehautorized_, list_value_cookies_):
+def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_passwords_, list_emails_prehautorized_,
+                             list_value_cookies_):
     list_user = ["email", "name", "password"]
     list_cookies = ["expiry_days", "key", "name"]
     list_value_prehautorized = {"emails": list_emails_prehautorized_}
 
     # generation user list
     l_user_values = []
-    for n in range ( len ( list_user ) - 1 ):
-        l_user_values.append ( [list_email_[n], list_name_[n], list_passwords_[n]] )
+    for n in range(len(list_user) - 1):
+        l_user_values.append([list_email_[n], list_name_[n], list_passwords_[n]])
 
     # list to dict
     credentials = {}
     usernames = {}
-    cookie = {'cookie': dict ( zip ( list_cookies, list_value_cookies_ ) )}
+    cookie = {'cookie': dict(zip(list_cookies, list_value_cookies_))}
     prehautorized = {'preauthorized': list_value_prehautorized}
 
     user_values = {}
-    for n in range ( len ( list_usernames_ ) ):
-        usernames[list_usernames_[n]] = dict ( zip ( list_user, l_user_values[n] ) )
+    for n in range(len(list_usernames_)):
+        usernames[list_usernames_[n]] = dict(zip(list_user, l_user_values[n]))
 
     usernames = {'usernames': usernames}
     config = {'credentials': usernames, **cookie, **prehautorized}  # merge dict
     return config
+
 
 # generation hashed_passwords et sauvegrde dans le fichier file_
 def generate_hashed_passwords(name, username, password_, file_):
@@ -83,12 +87,21 @@ def put_database(database_, dict_):
 
 
 def fetch_all(database_):
-    res = database_.fetch(database_)
+    res = database_.fetch()
     return res.items
 
 
 def get_database(database_, key_):
     return database_.get(key_)
+
+
+def filter_database(database_items_ , key_):
+    l_ = []
+    for l in database_items_:
+        l_.append(l[key_])
+    return l_
+
+    return res.items
 
 
 def fetch_projet(database_, query_):  # fetch_projet(db_user, {"name_project": 'led', "name": 'toto'} )
@@ -126,7 +139,6 @@ def get_code(getname_node, db):
 
 
 def get_file_drive(drive_, file_):
-
     get_d = drive_.get(f"{file_}")
     content = get_d.read()
     get_d.close()

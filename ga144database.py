@@ -3,7 +3,7 @@ import sys
 
 import yaml
 from yaml import SafeLoader
-
+import json
 import database
 import streamlit as st
 import streamlit_authenticator as stauth
@@ -11,11 +11,15 @@ import streamlit_authenticator as stauth
 path_avatar_drive = 'avatar'
 if "avatar" not in st.session_state:
     avatar = ''
+# read datas from user.database
+d = database.fetch_all(database.db_user) # all items user databse
+list_usernames = database.filter_database(d,"username") # select all values username
+list_name = database.filter_database(d,"name") # select all values name
+list_email = database.filter_database(d,"email") # select all values email
 
-# read hashed passwords name , username
-list_usernames = ["admin", "esaid"]
-list_email = ["admin_ga144@gmail.com", "emmanuel.said@gmail.com"]
-list_name = ["admin", "Emmanuel"]
+# list_usernames = ["admin", "esaid"]
+#list_email = ["admin_ga144@gmail.com", "emmanuel.said@gmail.com"]
+#list_name = ["admin", "Emmanuel"]
 # list_passwords = ["hashed_password", "$hashed_password"] # 1234 1234 to be replaced by hashed values
 list_emails_prehautorized = ["emmanuel.said@gmail.com"]
 list_value_cookies = [30, "random_signature_key", "random_cookie_name"]
@@ -36,6 +40,8 @@ name, authentication_status, username = authenticator.login('GA144', 'main')
 placeholder = st.empty()
 
 with placeholder.container():
+    if st.button("Register"):
+        st.write("Register")
     st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
     st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
 
