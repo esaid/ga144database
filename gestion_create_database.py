@@ -12,8 +12,7 @@ create_avatar_drive = False
 # Authentification
 name = ["admin", "emmanuel said"]
 username = ["admin", "esaid"]
-passwords = ["1234", "1234"]  # 1234  1234
-
+passwords = ["4321", "1234"]  # 4321  1234
 
 file_hashed_passwords = 'hashed_pwd.plk'
 create_hashed_passwords = False
@@ -36,7 +35,8 @@ creation_project = False
 
 if create_hashed_passwords:
     # generation fichier si ajout ou modification mot de passe
-    database.generate_hashed_passwords(name, username, passwords, file_hashed_passwords)
+    database.generate_hashed_passwords(name, username, passwords, file_hashed_passwords) # creation fichier
+    database.put_file_drive(database.db_hashed, file_hashed_passwords, '') # save file database
 
 # creation fichiers png avatar vers Drive
 if create_avatar_drive:  # creation et stockage des fichiers avatar/png

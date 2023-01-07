@@ -25,6 +25,8 @@ avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
 path_lib_drive = 'lib'
 lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
 
+db_hashed = deta.Drive('hashed_pwd.plk')  # hashed Drive
+
 
 # --------------------------------------------------
 def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_passwords_, list_emails_prehautorized_,
@@ -76,6 +78,9 @@ def read_hashed_passwords(file_):
         return name_, username_, password_
 
 
+
+
+
 def readfile(filename):
     with open(filename) as f:
         content = f.readlines()
@@ -95,13 +100,11 @@ def get_database(database_, key_):
     return database_.get(key_)
 
 
-def filter_database(database_items_ , key_):
+def filter_database(database_items_, key_):
     l_ = []
     for l in database_items_:
         l_.append(l[key_])
     return l_
-
-    return res.items
 
 
 def fetch_projet(database_, query_):  # fetch_projet(db_user, {"name_project": 'led', "name": 'toto'} )
@@ -115,23 +118,10 @@ def update_database(database_, update_values_, key_):
     database_.put(d)
 
 
-# a = fetch_projet(db_user, {"name_project": 'led', "name": 'toto'})
-# sys.exit()
-
-# name_ = 'Emmanuel'
-# a = get_database(db_user, '1')
-# print(a)
-# update_database(db_user, {'name': name_}, '1')
-# sys.exit()
-
-
 def delete_database(database_, query_):  # delete_database(db_user, {"name": "Emmanuel"})
     fetch_res = database_.fetch(query_)
     for item in fetch_res.items:
         db_user.delete(item["key"])
-
-
-# delete_database(db_user, {"name": "Emmanuel"})
 
 
 def get_code(getname_node, db):
@@ -155,3 +145,15 @@ def delete_file_drive(drive_, file_):
 
 def list_files(drive_):
     return drive_.list().get('names')
+
+
+
+# a = fetch_projet(db_user, {"name_project": 'led', "name": 'toto'})
+# sys.exit()
+
+# name_ = 'Emmanuel'
+# a = get_database(db_user, '1')
+# print(a)
+# update_database(db_user, {'name': name_}, '1')
+# sys.exit()
+
