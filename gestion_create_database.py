@@ -35,7 +35,7 @@ creation_project = False
 
 if create_hashed_passwords:
     # generation fichier si ajout ou modification mot de passe
-    database.generate_hashed_passwords(name, username, passwords, file_hashed_passwords) # creation fichier
+    database.generate_hashed_passwords_file(name, username, passwords, file_hashed_passwords) # creation fichier
     database.put_file_drive(database.db_hashed, file_hashed_passwords, '') # save file database
 
 # creation fichiers png avatar vers Drive
@@ -62,6 +62,7 @@ if creation_user:
         'username': "esaid",
         'email': "emmanuel.said@gmail.com",
         'avatar': '003.png',
+        'password': '',
         'key': '1'
     }
     database.put_database(database.db_user, dict_db_user)  # ecriture dans datatbase user

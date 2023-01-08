@@ -56,7 +56,7 @@ def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_pass
 
 
 # generation hashed_passwords et sauvegrde dans le fichier file_
-def generate_hashed_passwords(name, username, password_, file_):
+def generate_hashed_passwords_file(name, username, password_, file_):
     hashed_passwords = stauth.Hasher(password_).generate()
     print(f"generation password :{hashed_passwords}")
     # ecriture du fichier passwords
@@ -67,10 +67,14 @@ def generate_hashed_passwords(name, username, password_, file_):
         pickle.dump(hashed_passwords, f)
         f.close()
 
+def generate_hashed_passwords(password_):
+    return stauth.Hasher(password_).generate()
+
 
 def read_hashed_passwords(file_):
     # lecture fichier hashed_pwd.plk
     with open(file_, 'rb') as f:
+        name_ = pickle.loads(f)
         name_ = pickle.load(f)
         username_ = pickle.load(f)
         password_ = pickle.load(f)
