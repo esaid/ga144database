@@ -57,8 +57,7 @@ if create_lib_drive:
 if creation_user:
     # generation dictionnaire user
     dict_db_user = {
-        'surname': 'Emmanuel',
-        'name': 'SAID',
+        'name': 'Emmanuel',
         'username': "esaid",
         'email': "emmanuel.said@gmail.com",
         'avatar': '003.png',
