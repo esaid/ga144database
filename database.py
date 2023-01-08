@@ -37,7 +37,7 @@ def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_pass
 
     # generation user list
     l_user_values = []
-    for n in range(len(list_user) - 1):
+    for n in range(len(list_user)):
         l_user_values.append([list_email_[n], list_name_[n], list_passwords_[n]])
 
     # list to dict
