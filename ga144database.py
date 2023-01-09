@@ -50,7 +50,7 @@ try:
             'name': last_name,
             'username': last_username,
             'email': last_email,
-            'avatar': '003.png',
+            'avatar':  st.session_state["avatar"],
             'password': last_password,
             'key': next_key
         }
