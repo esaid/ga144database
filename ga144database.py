@@ -10,15 +10,16 @@ import streamlit_authenticator as stauth
 
 path_avatar_drive = 'avatar'
 if "avatar" not in st.session_state:
-    avatar = ''
+    st.session_state["avatar"] = ''
 # read datas from user.database
-d = database.fetch_all(database.db_user)  # all items user databse
+d = database.fetch_all(database.db_user)  # all items user database
 next_key = database.next_key(d)
 
 list_usernames = database.filter_database(d, "username")  # all values username
 list_name = database.filter_database(d, "name")  # all values name
 list_email = database.filter_database(d, "email")  # all values email
 list_passwords = database.filter_database(d, "password")  # values password
+list_avatar = database.filter_database(d,'avatar') # values avatar
 list_emails_prehautorized = ["emmanuel.said@gmail.com"]
 list_value_cookies = [30, "random_signature_key", "random_cookie_name"]
 # read list_passwords ( hashed values)
@@ -35,9 +36,34 @@ authenticator = stauth.Authenticate(
 )
 
 
+t = list_usernames.index("emmanuel")
+
+
+name, authentication_status, username = authenticator.login('GA144', 'main')
+
+
+placeholder = st.empty()
+with placeholder.container():
+    if authentication_status:
+        authenticator.logout('Logout', 'main')
+        st.write(f'Welcome *{name}*')
+        st.session_state["avatar"]  = list_avatar[list_usernames.index(f"{username}")]
+        st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
+
+    elif authentication_status == False:
+        st.error('Username/password is incorrect')
+    elif authentication_status == None:
+        st.warning('Please enter your username and password')
+
+    st.stop()
+
+
+
+
+
 try:
-    st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
-    st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
+    #st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
+    #st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
 
     if authenticator.register_user('Register user', preauthorization=False):
         st.success('User registered successfully')
@@ -62,17 +88,3 @@ except Exception as e:
     st.error(e)
 
 
-name, authentication_status, username = authenticator.login('GA144', 'main')
-
-placeholder = st.empty()
-
-with placeholder.container():
-    if authentication_status:
-        placeholder.empty()  # status ok, clear st.image(avatar)
-        st.write(f'Welcome *{name}*')
-        st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
-        authenticator.logout('Logout', 'main')
-    elif authentication_status == False:
-        st.error('Username/password is incorrect')
-    elif authentication_status is None:
-        st.warning('Please enter your username and password')

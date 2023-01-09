@@ -112,9 +112,10 @@ def filter_database(database_items_, key_):
     return l_
 
 
-def fetch_projet(database_, query_):  # fetch_projet(db_user, {"name_project": 'led', "name": 'toto'} )
+def fetch_database(database_, query_):  # fetch_database(db_user, {"name_project": 'led', "name": 'toto'} )
     res = database_.fetch(query_)
-    return res.items
+    res =res.items
+    return res
 
 
 def update_database(database_, update_values_, key_):
