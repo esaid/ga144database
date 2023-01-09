@@ -27,7 +27,8 @@ lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
 
 db_hashed = deta.Drive('hashed_pwd.plk')  # hashed Drive
 
-
+def next_key(d_):
+    return max(list(map(int, filter_database(d_,'key'))))+1
 # --------------------------------------------------
 def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_passwords_, list_emails_prehautorized_,
                              list_value_cookies_):
@@ -37,7 +38,7 @@ def autentificator_list_dict(list_usernames_, list_email_, list_name_, list_pass
 
     # generation user list
     l_user_values = []
-    for n in range(len(list_user)):
+    for n in range(len(list_usernames_)):
         l_user_values.append([list_email_[n], list_name_[n], list_passwords_[n]])
 
     # list to dict

@@ -13,7 +13,7 @@ if "avatar" not in st.session_state:
     avatar = ''
 # read datas from user.database
 d = database.fetch_all(database.db_user)  # all items user databse
-next_key = str(max(list(map(int, database.filter_database(d,'key'))))+1)
+next_key = database.next_key(d)
 
 list_usernames = database.filter_database(d, "username")  # all values username
 list_name = database.filter_database(d, "name")  # all values name
@@ -52,7 +52,7 @@ try:
             'email': last_email,
             'avatar':  st.session_state["avatar"],
             'password': last_password,
-            'key': next_key
+            'key': str(next_key)
         }
         st.write(dict_db_user)
         st.write(last_username,last_name , last_email, last_password)
