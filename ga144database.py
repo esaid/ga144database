@@ -12,6 +12,9 @@ import streamlit_authenticator as stauth
 path_avatar_drive = 'avatar'
 if "avatar" not in st.session_state:
     st.session_state["avatar"] = ''
+
+if 'login' not in st.session_state:
+    st.session_state["login"] = False
 # read datas from user.database
 d = database.fetch_all(database.db_user)  # all items user database
 next_key = database.next_key(d)
@@ -40,6 +43,7 @@ name, authentication_status, username = authenticator.login('GA144', 'main')
 placeholder = st.empty()
 with placeholder.container():
     if authentication_status:
+        st.session_state["login"] = True
         st.session_state["avatar"] = list_avatar[list_usernames.index(f"{username}")]
         st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70,
                  caption=f"Welcome {username}")
@@ -49,29 +53,30 @@ with placeholder.container():
         st.error('Username/password is incorrect')
     elif authentication_status == None:
         st.warning('Please enter your username and password')
-
-    try:
-        st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
-        st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
-        if authenticator.register_user('Register user', preauthorization=False):
-            st.success('User registered successfully')
-            # st.write(config) # recueration des valeurs register_user
-            last_username = list(config['credentials']['usernames'])[-1] # last register
-            last_name = config['credentials']['usernames'][last_username]['name']
-            last_email = config['credentials']['usernames'][last_username]['email']
-            last_password = config['credentials']['usernames'][last_username]['password']
-            dict_db_user = {
-                'name': last_name,
-                'username': last_username,
-                'email': last_email,
-                'avatar': st.session_state["avatar"],
-                'password': last_password,
-                'key': str(next_key)
-            }
-            st.write(dict_db_user)
-            st.write(last_username, last_name, last_email, last_password)
-            database.put_database(database.db_user, dict_db_user)  # ecriture dans datatbase user
-
-
-    except Exception as e:
-        st.error(e)
+    if st.session_state["login"] == False:
+        try:
+            st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
+            st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
+            if authenticator.register_user('Register user', preauthorization=False):
+                st.success('User registered successfully')
+                # st.write(config) # recueration des valeurs register_user
+                last_username = list(config['credentials']['usernames'])[-1] # last register
+                last_name = config['credentials']['usernames'][last_username]['name']
+                last_email = config['credentials']['usernames'][last_username]['email']
+                last_password = config['credentials']['usernames'][last_username]['password']
+                dict_db_user = {
+                    'name': last_name,
+                    'username': last_username,
+                    'email': last_email,
+                    'avatar': st.session_state["avatar"],
+                    'password': last_password,
+                    'key': str(next_key)
+                }
+                # st.write(dict_db_user)
+                # st.write(last_username, last_name, last_email, last_password)
+                database.put_database(database.db_user, dict_db_user)  # ecriture dans datatbase user
+                time.sleep(2)
+                st.session_state["login"] = True
+                placeholder.empty()
+        except Exception as e:
+            st.error(e)
