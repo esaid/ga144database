@@ -35,7 +35,6 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days'],
     config['preauthorized']
 )
-
 name, authentication_status, username = authenticator.login('GA144', 'main')
 
 placeholder = st.empty()
@@ -46,22 +45,18 @@ with placeholder.container():
                  caption=f"Welcome {username}")
         authenticator.logout('Logout', 'main')
         time.sleep(2)
-
-
-
     elif authentication_status == False:
         st.error('Username/password is incorrect')
     elif authentication_status == None:
         st.warning('Please enter your username and password')
 
     try:
-        # st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
-        # st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
-
+        st.session_state["avatar"] = st.selectbox("my avatar 👇", database.list_files(database.avatar_drive))
+        st.image(database.get_file_drive(database.avatar_drive, st.session_state["avatar"]), width=70)
         if authenticator.register_user('Register user', preauthorization=False):
             st.success('User registered successfully')
             # st.write(config) # recueration des valeurs register_user
-            last_username = list(config['credentials']['usernames'])[-1]
+            last_username = list(config['credentials']['usernames'])[-1] # last register
             last_name = config['credentials']['usernames'][last_username]['name']
             last_email = config['credentials']['usernames'][last_username]['email']
             last_password = config['credentials']['usernames'][last_username]['password']
