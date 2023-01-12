@@ -24,6 +24,10 @@ path_avatar_drive = 'avatar'  # fichiers stocke avatar/001.png
 avatar_drive = deta.Drive(path_avatar_drive)  # avatar/ Drive
 path_lib_drive = 'lib'
 lib_drive = deta.Drive(path_lib_drive)  # lib/ Drive
+path_lotties_drive = 'lotties'  # fichiers json
+lotties_drive = deta.Drive(path_lotties_drive)  # avatar/ Drive
+
+
 
 db_hashed = deta.Drive('hashed_pwd.plk')  # hashed Drive
 

@@ -5,6 +5,12 @@ import os
 #  avatar png
 path_avatar_local = 'avatar/png/'  # avatar/png Local
 create_avatar_drive = False
+
+
+# --------------------------------------------------
+#  lotties files
+path_lotties_local = 'lotties/'  # lotties/
+create_lotties_drive = True
 # --------------------------------------------------
 
 # --------------------------------------------------
@@ -37,6 +43,15 @@ if create_hashed_passwords:
     # generation fichier si ajout ou modification mot de passe
     database.generate_hashed_passwords_file(name, username, passwords, file_hashed_passwords) # creation fichier
     database.put_file_drive(database.db_hashed, file_hashed_passwords, '') # save file database
+
+# creation fichiers png avatar vers Drive
+if create_lotties_drive:  # creation et stockage des fichiers avatar/png
+    list_lotties = os.listdir(path_lotties_local)  # list files json
+    # copie des fichiers /lotties vers drive
+    for l in list_lotties:
+        print(l)
+        database.put_file_drive(database.lotties_drive, l, path_lotties_local)  # file to send from path_avatar_local
+
 
 # creation fichiers png avatar vers Drive
 if create_avatar_drive:  # creation et stockage des fichiers avatar/png
